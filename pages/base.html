@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="home_main">
+        <div class="home">
+            <span><i class="fa-solid fa-magnifying-glass"></i></span>
+            <input type="text" placeholder="          Tìm kiếm" class="search"> &nbsp;&nbsp;
+            <span class="content1"><a href="" style="color: black; width: 700px;">Trang chủ</a></span> &nbsp;&nbsp;
+            <span class="content2"><a href="../pages/dashboard.html">Môn học</a></span> &nbsp;&nbsp;
+            <span class="content3"><a href="../pages/category-manager.html">Bài học</a></span> &nbsp;&nbsp;
+            <span><img src="../assets/Heart.png" class="heart"> </span> &nbsp;&nbsp;&nbsp;&nbsp;
+            <span><img src="../assets/Home.png" class="avatar" onclick="confirmLogout()"> </span>
+        </div><br><br>
+        <hr>
+        <div class="all">
+            <span><a href="" style="color: black; font-weight: 600;"><u>Tất cả môn học</u></a></span> &nbsp;&nbsp;
+            <span><a href="">Đã hoàn thành</a></span> &nbsp;&nbsp;
+            <span><a href="">Chưa hoàn thành</a></span>
+        </div><br><br>
+        <div class="choice_home">
+            <div class="home1">
+                <h2> &nbsp;&nbsp;&nbsp;&nbsp; HTML cơ bản</h2>
+                <p> &nbsp; <i class="fa-regular fa-circle-check"></i> Session 01: Tổng quan về HTML</p> <br>
+                <p> &nbsp; <i class="fa-regular fa-circle-check"></i> Session 02: Thẻ Inline và Block</p><br>
+                <p> &nbsp; <i class="fa-regular fa-circle-check"></i> Session 03: Thẻ hình ảnh</p><br>
+                <p> &nbsp; <i class="fa-regular fa-circle-check"></i> Session 04: Thẻ chuyển trang</p><br>
+                <p> &nbsp; <i class="fa-regular fa-circle-check"></i> Session 05: Thẻ Semantic</p>
+                <p class="More1"><a href="#">Xem thêm</a> </p>
+            </div>
+            <div class="home2">
+                <h2> &nbsp;&nbsp;&nbsp;&nbsp; CSS cơ bản</h2>
+                <p> &nbsp; <i class="fa-regular fa-circle-check"></i> Session 01: Tổng quan về CSS</p><br>
+                <p> &nbsp; <i class="fa-regular fa-circle-check"></i> Session 02: Nhúng CSS vào trang Web</p><br>
+                <p> &nbsp; <i class="fa-regular fa-circle-check"></i> Session 03: Position</p><br>
+                <p> &nbsp; <i class="fa-regular fa-circle-check"></i> Session 04: Flexbox</p><br>
+                <p> &nbsp; <i class="fa-regular fa-circle-check"></i> Session 05: Animation</p><br>
+                <p class="More2"><a href="#">Xem thêm</a> </p>
+            </div>
+            <div class="home3">
+                <h2> &nbsp;&nbsp;&nbsp;&nbsp; JavaScript cơ bản</h2>
+                <p> &nbsp; <i class="fa-regular fa-circle-check"></i> Session 01: Tổng quan ngôn ngữ JavaScript</p><br>
+                <p> &nbsp; <i class="fa-regular fa-circle-check"></i> Session 02: Khai báo biến</p><br>
+                <p> &nbsp; <i class="fa-regular fa-circle-check"></i> Session 03: Câu lệnh điều kiện</p><br>
+                <p> &nbsp; <i class="fa-regular fa-circle-check"></i> Session 04: Vòng lặp</p><br>
+                <p> &nbsp; <i class="fa-regular fa-circle-check"></i> Session 05: Mảng</p> <br>
+                <p class="More3"><a href="#">Xem thêm</a> </p>
+            </div>
+        </div><br>
+
+
+        <div class="choice_home">
+            <div class="home4">
+                <h2> &nbsp;&nbsp;&nbsp;&nbsp; Lập trình với React.js</h2>
+                <p> &nbsp; <i class="fa-regular fa-circle-check"></i> Session 01: Tổng quan về React.js </p> <br>
+                <p> &nbsp; <i class="fa-regular fa-circle-check"></i> Session 02: Props, State, Event </p><br>
+                <p> &nbsp; <i class="fa-regular fa-circle-check"></i> Session 03: React hook </p><br>
+                <p> &nbsp; <i class="fa-regular fa-circle-check"></i> Session 04: UI Framework</p><br>
+                <p> &nbsp; <i class="fa-regular fa-circle-check"></i> Session 05: React Router </p>
+                <p class="More4"><a href="#">Xem thêm</a> </p>
+            </div>
+            <div class="home5">
+                <h2> &nbsp;&nbsp;&nbsp;&nbsp; Lập trình với Java</h2>
+                <p> &nbsp; <i class="fa-regular fa-circle-check"></i> Session 01: Tổng quan về ngôn ngữ Java</p><br>
+                <p> &nbsp; <i class="fa-regular fa-circle-check"></i> Session 02: Khai báo biến </p><br>
+                <p> &nbsp; <i class="fa-regular fa-circle-check"></i> Session 03: Câu lệnh điều kiện </p><br>
+                <p> &nbsp; <i class="fa-regular fa-circle-check"></i> Session 04: Vòng lặp </p><br>
+                <p> &nbsp; <i class="fa-regular fa-circle-check"></i> Session 05: Mảng</p><br>
+                <p class="More5"><a href="#">Xem thêm</a> </p>
+            </div>
+            <div class="home6">
+                <h2> &nbsp;&nbsp;&nbsp;&nbsp; Lập trình C</h2>
+                <p class="nothing">Chưa có bài học nào</p>
+            </div>
+        </div><br><br><br>
+        <!-- <div>
+            <p>Xem thêm</p>
+        </div> -->
+        <div class="footer"><br>
+            <div class="footer1">
+                <div class="title1">
+                    <p>chúng tôi cung cấp giải pháp học tập, giúp học sinh và</p>
+                </div>
+                <div class="title2">
+                    <p>sinh viên học tập tốt và hiệu quả hơn</p>
+                    <i class="fa-brands fa-twitter"></i>
+                    <i class="fa-brands fa-facebook-f"></i>
+                    <i class="fa-brands fa-tiktok"></i>
+                    <i class="fa-brands fa-instagram"></i>
+                </div>
+            </div>
+            <div class="footer2">
+                <div class="link1"><a href="#">Danh mục</a></div><br>
+                <div class="link2"><a href="#">Môn học</a></div><br>
+                <div class="link3"><a href="#">Bài học</a></div><br>
+                <div class="link4"><a href="#">Ghi chú</a></div>
+            </div>
+            <div class="footer3">
+                <div class="help1"><a href="#">Hỗ trợ khách hàng</a></div><br>
+                <div class="help2"><a href="#">Tìm kiếm dịch vụ</a></div><br>
+                <div class="help3"><a href="#">Điều khoản sử dụng</a></div><br>
+                <div class="help4"><a href="#">Chính sách điều khoản</a></div>
+            </div>
+        </div>
+        
+    </div>
+</body>
+<script src="../js/base.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+</html>

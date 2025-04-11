@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/login.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<body class="tbody">
+    <div class="mid">
+        <h1 class="title">Đăng nhập</h1>
+        <p class="title1">Đăng nhập tài khoản để sử dụng hệ thống quản lý</p>
+    </div><br>
+
+    <div class="login">
+        <p>Email</p>
+        <input type="text" id="email" class="Email"><br>
+        <p>Mật khẩu</p>
+        <div class="border-pass">
+            <input type="password" id="password" class="Password">
+            <i onclick="checkPassword()" class="fa-solid fa-eye toggle-icon"></i>
+        </div><br>    
+    </div><br>
+
+    <div class="CHECK">
+        <input type="checkbox" id="accpect" class="checkbox">
+        <span>Nhớ tài khoản</span>
+        <span><a href="#" class="fogot">Quên mật khẩu?</a></span>
+    </div><br>
+
+    <div>
+        <button class="Login1" id="btn-login">Đăng nhập</button>
+    </div>
+
+    <div class="checkbox">
+        <p>Bạn chưa có tài khoản? <a href="../pages/register.html">Đăng ký</a></p>
+    </div>
+
+    <script src="../js/login.js"></script>
+</body>
+</html>

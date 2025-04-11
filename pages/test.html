@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        body {
+            display: flex;
+            font-family: Arial, sans-serif;
+        }
+
+        .sidebar {
+            width: 250px;
+            background: #f8f9fa;
+            padding: 20px;
+            height: 100vh;
+        }
+
+        .main {
+            flex-grow: 1;
+            padding: 20px;
+        }
+
+        .button {
+            padding: 10px;
+            margin: 2px;
+            border-radius: 5px;
+            height: 45px;
+            width: 45px;
+            border: 2px solid #D8DAE5;
+            background-color: white;
+        }
+
+        .show {
+            width: 650px;
+            height: 380px;
+            border: 1px solid black;
+            border-radius: 6px;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #FFFFFF;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .main-window {
+            display: none;
+        }
+
+        .text,
+        .choice {
+            width: 80%;
+            height: 35px;
+            border-radius: 6px;
+            border: 1px solid #D0D5DD;
+            margin-bottom: 10px;
+            padding: 5px;
+        }
+
+        .button-window2 {
+            height: 40px;
+            width: 100px;
+            background-color: #007AFF;
+            color: #FFFFFF;
+            border-radius: 6px;
+            border: none;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="sidebar">
+        <h2>Menu</h2>
+        <button onclick="show()">Thêm nhân viên</button>
+    </div>
+
+    <div class="main">
+        <h2>Danh sách nhân viên</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Tên bài học</th>
+                    <th>Thời gian học</th>
+                    <th>Trạng thái</th>
+                    <th>Chức năng</th>
+                </tr>
+            </thead>
+            <tbody id="tbody">
+
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Popup thêm nhân viên -->
+    <div id="main-window" class="main-window">
+        <input id="name" class="text" type="text" placeholder="Tên nhân viên">
+        <input id="position" class="text" type="text" placeholder="Chức vụ">
+        <button class="button-window2" onclick="addEmployee()">Thêm</button>
+        <button class="button-window2" onclick="hide()">Đóng</button>
+    </div>
+
+    <script>
+        let employee = JSON.parse(localStorage.getItem("employee")) || [];
+        let items = 3;
+        let currentPage = 1;
+
+        function show() {
+            document.getElementById('main-window').classList.remove("main-window");
+            document.getElementById('main-window').classList.add("show");
+        }
+
+        function hide() {
+            document.getElementById('main-window').classList.remove("show");
+            document.getElementById('main-window').classList.add("main-window");
+        }
+
+        function addEmployee() {
+            let name = document.getElementById("name").value.trim();
+            let position = document.getElementById("position").value.trim();
+
+            if (name === "" || position === "") {
+                alert("Vui lòng nhập đầy đủ thông tin!");
+                return;
+            }
+
+            let id = employee.length ? employee[employee.length - 1].id + 1 : 1;
+            let newEmployee = {
+                id: id,
+                name: name,
+                position: position
+            };
+
+            employee.push(newEmployee);
+            localStorage.setItem("employee", JSON.stringify(employee));
+
+            document.getElementById("name").value = "";
+            document.getElementById("position").value = "";
+
+            renderItem();
+            hide();
+        }
+
+        function calStartEnd() {
+            let start = (currentPage - 1) * items;
+            let end = currentPage * items;
+            return { start, end };
+        }
+
+        function renderItem() {
+            const { start, end } = calStartEnd();
+            let str = "";
+            for (let i = start; i < end && i < employee.length; i++) {
+                str += `
+                    <tr>
+                        <td>${employee[i].id}</td>
+                        <td>${employee[i].name}</td>
+                        <td>${employee[i].position}</td>
+                        <td>${employee[i].position}</td>
+                        
+                    </tr>`;
+            }
+            document.getElementById("tbody").innerHTML = str;
+        }
+
+        renderItem();
+    </script>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+body {
+    font-family: Arial, sans-serif;
+}
+.board_main {
+    width: 650px;
+    height: 340px;
+    position: fixed; /* Cố định modal trên màn hình */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Dịch modal về trung tâm */
+    background-color: #FFFFFF;
+    border-radius: 6px;
+    border: 1px solid black;
+    padding: 20px;
+    display: none;
+    flex-direction: column;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000; /* Đảm bảo hiển thị trên các phần khác */
+}
+
+.board_main {
+    display: none;
+}
+
+.container_main {
+    font-size: 20px;
+    font-family: Arial;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.content_board1 {
+    padding-top: 20px;
+    font-size: 15px;
+    font-family: Arial;
+}
+
+.content_check {
+    padding-top: 20px;
+    font-size: 15px;
+    font-family: Arial;
+}
+
+.check_active1 {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.button_board {
+    margin-left: 450px;
+    margin-top: 20px;
+}
+
+.cancel {
+    height: 40px;
+    width: 70px;
+    background-color: #E4E4E7;
+    border-radius: 6px;
+    border: none;
+}
+
+.add {
+    height: 40px;
+    width: 70px;
+    background-color: #007AFF;
+    color: #FFFFFF;
+    border-radius: 6px;
+    border: none;
+}
+.cancel_button{
+    border: none;
+    background-color: #FFFF;
+}
+.search_barBoard{
+    width: 500px;
+    height: 35px;
+    border-radius: 6px;
+
+}
+.show {
+    display: flex !important;
+}
+
+
+
+
+
+.search_subject{
+    width: 400px;
+    border-radius: 6px;
+    height: 35px;
+    margin-top: 10px;
+    margin-left: 100px;
+    color: #D0D5DD;
+    border: 2px solid #D0D5DD;
+}
+
+
+
+
+
+
+<!--<tr class="color">
+                 <td class="height"><input type="checkbox"></td>
+                <td>Session 01 - Tổng quan về HTML</td>
+                <td class="time">40</td>
+                <td><span class="active"><button class="online" disabled><img src="../assets/Dot complete.png"> Đang
+                            hoạt động</button></span></td>
+                <td> <i class="fas fa-trash" onclick="openModal()"></i>
+                    &nbsp;&nbsp;&nbsp; <i class="fa-solid fa-pen" onclick="openModal1()"></i></td>
+            </tr>
+            <tr>
+                <td class="height"><input type="checkbox"></td>
+                <td>Session 02 - thẻ Inline và Block</td>
+                <td>60</td>
+                <td><span class="inactive"><button class="offline" disabled><img src="../assets/Dot incomplete.png">
+                            Ngừng hoạt động</button></span></td>
+                <td> <i class="fas fa-trash" onclick="openModal()"></i>
+                    &nbsp;&nbsp;&nbsp; <i class="fa-solid fa-pen" onclick="openModal1()"></i></td>
+            </tr>
+            <tr class="color">
+                <td class="height"><input type="checkbox"></td>
+                <td>Session 03 - Form và Table </td>
+                <td>40</td>
+                <td><span class="active"><button class="online" disabled><img src="../assets/Dot complete.png"> Đang
+                            hoạt động</button></span></td>
+                <td> <i class="fas fa-trash" onclick="openModal()"></i>
+                    &nbsp;&nbsp;&nbsp; <i class="fa-solid fa-pen" onclick="openModal1()"></i></td>
+            </tr>
+            <tr>
+                <td class="height"><input type="checkbox"></td>
+                <td>Session 04 - CSS cơ bản</td>
+                <td>45</td>
+                <td><span class="inactive"><button class="offline" disabled><img src="../assets/Dot incomplete.png">
+                            Ngừng hoạt động</button></span></td>
+                <td> <i class="fas fa-trash" onclick="openModal()"></i>
+                    &nbsp;&nbsp;&nbsp; <i class="fa-solid fa-pen" onclick="openModal1()"></i></td>
+            </tr>
+            <tr>
+                <td class="height"><input type="checkbox"></td>
+                <td>Session 05 - CSS layout</td>
+                <td>60</td>
+                <td><span class="inactive"><button class="offline" disabled><img src="../assets/Dot incomplete.png">
+                            Ngừng hoạt động</button></span></td>
+                <td> <i class="fas fa-trash" onclick="openModal()"></i>
+                    &nbsp;&nbsp;&nbsp; <i class="fa-solid fa-pen" onclick="openModal1()"></i></td>
+            </tr>
+            <tr>
+                <td class="height"><input type="checkbox"></td>
+                <td>Session 06 - CSS Flex box</td>
+                <td>45</td>
+                <td><span class="inactive"><button class="offline" disabled><img src="../assets/Dot incomplete.png">
+                            Ngừng hoạt động</button></span></td>
+                <td> <i class="fas fa-trash" onclick="openModal()"></i>
+                    &nbsp;&nbsp;&nbsp; <i class="fa-solid fa-pen" onclick="openModal1()"></i></td>
+            </tr>
+            <tr class="color">
+                <td class="height"><input type="checkbox"></td>
+                <td>Session 12 - Con trỏ trong C</td>
+                <td>45</td>
+                <td><span class="active"><button class="online" disabled><img src="../assets/Dot complete.png"> Đang
+                            hoạt động</button></span></td>
+                <td> <i class="fas fa-trash" onclick="openModal()"></i>
+                    &nbsp;&nbsp;&nbsp; <i class="fa-solid fa-pen" onclick="openModal1()"></i></td>
+            </tr>
+            <tr>
+                <td class="height"><input type="checkbox"></td>
+                <td>Session 15 - Đọc và ghi file</td>
+                <td>60</td>
+                <td><span class="inactive"><button class="offline" disabled><img src="../assets/Dot incomplete.png">
+                            Ngừng hoạt động</button></span></td>
+                <td> <i class="fas fa-trash" onclick="openModal()"></i>
+                    &nbsp;&nbsp;&nbsp; <i class="fa-solid fa-pen" onclick="openModal1()"></i></td>-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    let subjects = JSON.parse(localStorage.getItem("subjects")) || [];
+function addSubject() {
+  let id = 0;
+  if (subjects.length === 0) {
+    id = 1;
+  } else {
+    id = subjects[subjects.length - 1].id + 1;
+  }
+
+  let name = document.getElementById("subjectName").value.trim();
+  let accept = document.querySelector('input[name="accept"]:checked')?.value.trim();
+
+  if (name.length === 0 /* || !accept */) {
+    Swal.fire({
+      icon: 'error',
+      title: 'Lỗi!',
+      text: 'Thông tin không được để trống!',
+      timer: 1500,
+      showConfirmButton: false
+    });
+    return;
+  }
+
+  let subject = {
+    id: id,
+    name: name,
+    accept: accept
+  }
+
+  subjects.push(subject);
+  localStorage.setItem("subjects", JSON.stringify(subjects));
+  showSubject(); // cập nhật bảng sau khi thêm
+}
+
+function showSubject() {
+  let str = "";
+  for (let i = 0; i < subjects.length; i++) {
+    if(subjects[i].accept==="Đang hoạt động"){
+      str += `
+    <tr class="color">
+      <td>${subjects[i].name}</td>
+      <td><span class="active"><button class="online" disabled style="background-color: #ECFDF3; color: #027A48;"> ${subjects[i].accept}</button></span></td>
+      <td> <i class="fas fa-trash" onclick="openModal()"></i>
+            &nbsp;&nbsp;&nbsp; <i class="fa-solid fa-pen" onclick="openModal1()"></i></td>
+      </tr>
+    `
+    }else{
+      str += `
+    <tr class="color">
+      <td>${subjects[i].name}</td>
+      <td><span class="active"><button class="offline" disabled style="background-color: #FEF2F2; color: #B91C1C;"> ${subjects[i].accept}</button></span></td>
+      <td> <i class="fas fa-trash" onclick="openModal()"></i>
+            &nbsp;&nbsp;&nbsp; <i class="fa-solid fa-pen" onclick="openModal1()"></i></td>
+      </tr>
+    `
+    }
+  }
+  document.getElementById("SubjectTableBody").innerHTML = str;
+}
+showSubject();
+
+
+
+<!-- Cửa sổ -->
+function show() {
+    document.getElementById("board_main").style.display = "flex";
+  }
+  
+  function hide() {
+    document.getElementById("board_main").style.display = "none";
+  }
+  
+  function closeBoard() {
+    hide();
+  }

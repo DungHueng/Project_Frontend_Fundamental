@@ -1,0 +1,102 @@
+.tbody {
+    font-family: arial;
+}
+
+.mid {
+    margin-top: 150px;
+}
+
+.title {
+    margin-left: 600px;
+}
+
+.title1 {
+    margin-left: 600px;
+    color: #52525B;
+}
+
+.login {
+    margin-left: 600px;
+    font-weight: 600;
+}
+
+.Password {
+    width: 407px;
+    height: 35px;
+    border-radius: 6px;
+    padding-right: 35px;
+    box-sizing: border-box;
+    border: 2px solid #CBD5E1;
+}
+
+.Email {
+    width: 400px;
+    height: 30px;
+    border-radius: 6px;
+    border: 2px solid #CBD5E1;
+}
+
+.Password {
+    width: 407px;
+    height: 35px;
+}
+
+.checkbox {
+    margin-left: 600px;
+    color: #64748B;
+}
+
+.checkbox a{
+    text-decoration: none;
+}
+
+.Login1 {
+    width: 410px;
+    height: 35px;
+    border-radius: 6px;
+    margin-left: 600px;
+    border: none;
+    background-color: #2563EB;
+    color: white;
+}
+
+.fogot {
+    margin-left: 160px;
+    text-decoration: none;
+    color: purple;
+}
+
+.CHECK a {
+    text-decoration: none;
+}
+
+.border-pass {
+    position: relative;
+    width: 407px;
+    height: 35px;
+}
+
+.toggle-icon {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #333;
+}
+
+.fa-eye {
+    color: #CBD5E1;
+}
+
+.input-error {
+    border: 2px solid red !important;
+}
+
+.error-message {
+    color: #f44336;        
+    font-size: 13px;          
+    font-weight: normal;     
+    margin-top: 3px;      
+}
+
