@@ -3,7 +3,7 @@ const currentSubjectId = "subject";
 let editLessonId = null; // Biến để lưu ID bài học đang được chỉnh sửa
 let sortByNameAsc = true; // true: A-Z, false: Z-A
 
-const sampleLessons = [
+const Lessons = [
   {
     id: 1,
     subject_id: "subject",
@@ -71,7 +71,7 @@ const sampleLessons = [
 ];
 
 // Lưu vào localStorage
-localStorage.setItem("lessons", JSON.stringify(sampleLessons));
+localStorage.setItem("lessons", JSON.stringify(Lessons));
 
 function saveLesson() {
   const nameInput = document.getElementById("lessonName");
@@ -131,7 +131,7 @@ function saveLesson() {
   };
 
   if (editLessonId) {
-    lessons = lessons.map(lesson => lesson.id === id ? newLesson : lesson);
+    lessons = lessons.map(lesson => lesson.id === id ? newLesson : lesson); // sẽ duyệt qua từng phần tử trong mảng lessons, và trả về một mảng mới.
     editLessonId = null;
   } else {
     lessons.unshift(newLesson);
@@ -184,9 +184,9 @@ function openDeleteModal(id) {
     cancelButtonText: 'Hủy'
   }).then((result) => {
     if (result.isConfirmed) {
-      lessons = lessons.filter(l => l.id !== id);
+      lessons = lessons.filter(l => l.id !== id); // Xóa bài học theo ID
       localStorage.setItem("lessons", JSON.stringify(lessons));
-      renderLessons();
+      renderLessons(); // Cập nhật danh sách
       Swal.fire({
         icon: 'success',
         title: 'Đã xoá!',
@@ -222,17 +222,14 @@ window.onload = function () {
   }
 };
 
+/* Phân trang */
 let currentPage = 1;
 const lessonsPerPage = 4;
 
-function getTotalPages() {
-  return Math.ceil(lessons.length / lessonsPerPage);
-}
-
-function calculateStartEnd() {
-  const start = (currentPage - 1) * lessonsPerPage;
-  const end = currentPage * lessonsPerPage;
-  return { start, end };
+function paginateLessons(data, itemsPerPage, page) {
+  const start = (page - 1) * itemsPerPage;
+  const end = page * itemsPerPage;
+  return data.slice(start, end);
 }
 
 function renderLessons() {
@@ -257,9 +254,86 @@ function renderLessons() {
       return true;
     });
   }
+  
+
+  // Sắp xếp theo tên (nếu có biến sortByNameAsc)
+  filteredLessons.sort((a, b) => {
+    return sortByNameAsc
+      ? a.lesson_name.localeCompare(b.lesson_name)
+      : b.lesson_name.localeCompare(a.lesson_name);
+  });
+
+  const totalPages = Math.ceil(filteredLessons.length / lessonsPerPage);
+  if (currentPage > totalPages) currentPage = 1;
+
+  const paginatedLessons = paginateLessons(filteredLessons, lessonsPerPage, currentPage);
+
+  let str = "";
+  paginatedLessons.forEach((lesson, i) => {
+    const statusColor = lesson.status === "done"
+      ? `style="background-color: #ECFDF3; color: #027A48;"`
+      : `style="background-color: #FEF2F2; color: #B91C1C;"`;
+
+    str += `
+      <tr>
+        <td><input type="checkbox"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${lesson.lesson_name}</td>
+        <td>${lesson.time}</td>
+        <td><button class="${lesson.status === "done" ? "online" : "offline"}" disabled ${statusColor}>${lesson.status === "done" ? "Đã hoàn thành" : "Chưa hoàn thành"}</button></td>
+        <td>
+          <i class="fas fa-trash" onclick="openDeleteModal(${lesson.id})"></i>
+          &nbsp;&nbsp;&nbsp;
+          <i class="fa-solid fa-pen" onclick="openEditModal(${lesson.id})"></i>
+        </td>
+      </tr>
+    `;
+  });
+
+  tableBody.innerHTML = str;
+  renderLessonPagination(filteredLessons.length);
+}
+
+function renderLessonPagination(totalItems) {
+  const totalPages = Math.ceil(totalItems / lessonsPerPage);
+  let str = "";
+
+  // Nút Prev
+  str += `<button class="button" onclick="prevLessonPage()" ${currentPage === 1 ? 'disabled' : ''}>&lt;</button>`;
+
+  // Nút số trang
+  for (let i = 1; i <= totalPages; i++) {
+    str += `<button class="button" onclick="goToLessonPage(${i})" ${
+      i === currentPage
+        ? 'style="font-weight:bold;background-color:#0066FF;color:white;"'
+        : ""
+    }>${i}</button>`;
+  }
+
+  // Nút Next
+  str += `<button class="button" onclick="nextLessonPage()" ${currentPage === totalPages ? 'disabled' : ''}>&gt;</button>`;
+
+  document.getElementById("paginationContainer").innerHTML = str;
+}
+
+function prevLessonPage() {
+  if (currentPage > 1) {
+    currentPage--;
+    renderLessons();
+  }
+}
+
+function nextLessonPage() {
+  currentPage++;
+  renderLessons();
+}
+
+function goToLessonPage(page) {
+  currentPage = page;
+  renderLessons();
+}
+
 
   // Áp dụng sắp xếp theo tên
-  filteredLessons.sort((a, b) => {
+   filteredLessons.sort((a, b) => {
     return sortByNameAsc
       ? a.lesson_name.localeCompare(b.lesson_name)
       : b.lesson_name.localeCompare(a.lesson_name);
@@ -274,20 +348,20 @@ function renderLessons() {
 
     const row = document.createElement("tr");
     row.innerHTML = `
-      <td><input type="checkbox"> ${lesson.lesson_name}</td>
+      <td><input type="checkbox"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ${lesson.lesson_name}</td>
       <td>${lesson.time}</td>
       <td><span class="${statusClass}">${statusText}</span></td>
       <td>
-        <i class="fas fa-trash" onclick="openDeleteModal(${lesson.id})"></i>
+       <i class="fas fa-trash" onclick="openDeleteModal(${lesson.id})"></i>
         &nbsp;&nbsp;&nbsp;
-        <i class="fa-solid fa-pen" onclick="openEditModal(${lesson.id})"></i>
+       <i class="fa-solid fa-pen" onclick="openEditModal(${lesson.id})"></i>
       </td>
     `;
     tableBody.appendChild(row);
   });
 
   renderPagination(filteredLessons.length);
-}
+
 
 function renderPagination(totalLessons) {
   const paginationContainer = document.getElementById("paginationContainer");

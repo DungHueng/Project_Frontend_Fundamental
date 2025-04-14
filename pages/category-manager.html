@@ -42,23 +42,23 @@
             </div>
         </div><br>
         <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>
-                        <input type="checkbox">
+            <thead style="background-color: #EAECF0;">
+                <tr style="color: #667085;">
+                    <td>
+                        <input type="checkbox"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         Tên bài học
                         <img src="../assets/filter.png" id="sortByNameBtn" style="cursor: pointer; width: 16px; height: 16px; margin-left: 6px;">
-                    </th>
-                    <th>Thời gian học <img src="../assets/filter.png" style="cursor: pointer; width: 16px; height: 16px; margin-left: 6px;"> </th>
-                    <th>Trạng thái</th>
-                    <th>Chức năng</th>
+                    </td>
+                    <td>Thời gian học <img src="../assets/filter.png" style="cursor: pointer; width: 16px; height: 16px; margin-left: 6px;"> </td>
+                    <td>Trạng thái</td>
+                    <td>Chức năng</td>
                 </tr>
             </thead>
             <tbody id="lessonTableBody">
 
             </tbody>
         </table>
-        <div class="pages" id="paginationContainer">
+        <!-- <div class="pages" id="paginationContainer">
             <button class="button" onclick="changePage('prev')">&lt;</button>
             <button class="button" onclick="changePage(1)">1</button>
             <button class="button" onclick="changePage(2)">2</button>
@@ -66,6 +66,15 @@
             <button class="button" onclick="changePage(4)">4</button>
             <button class="button" onclick="changePage(5)">5</button>
             <button class="button" onclick="changePage('next')">&gt;</button>
+        </div> -->
+        <div class="pages" id="paginationContainer">
+            <button class="button" onclick="prevPage()" id="prevButton">&lt;</button>
+            <button class="button" onclick="changePage(1)">1</button>
+            <button class="button" onclick="changePage(2)">2</button>
+            <button class="button" onclick="changePage(3)">3</button>
+            <button class="button" onclick="changePage(4)">4</button>
+            <button class="button" onclick="changePage(5)">5</button>
+            <button class="button" onclick="nextPage()" id="nextButton">&gt;</button>
         </div>
         <div id="board_main" class="board_main">
             <div class="container_main">
@@ -81,9 +90,15 @@
             <div class="content_board1">
                 <label for="lessonSubject">Loại môn học</label><br>
                 <select id="lessonSubject" class="subjectName1">
-                    <option value=""></option>
-                    <option>Lập trình C cơ bản</option>
-                    <option>JavaScript cơ bản</option>
+                    <option value="">Mời bạn chọn môn học</option>
+                    <option style=" color: black;">Lập trình C cơ bản</option>
+                    <option style=" color: black;">JavaScript cơ bản</option>
+                    <option style=" color: black;">Lập trình Backend với Spring boot</option>
+                    <option style=" color: black;">Lập trình Frontend với VueJS</option>
+                    <option style=" color: black;">Cấu trúc dữ liệu và giải thuật</option>
+                    <option style=" color: black;">Phân tích và thiết kế hệ thống</option>
+                    <option style=" color: black;">Toán cao cấp </option>
+                    <option style=" color: black;">Tiếng Anh chuyên ngành</option>
                 </select>
                 <span id="subjectError" class="error-message"></span>
             </div>

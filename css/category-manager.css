@@ -86,6 +86,12 @@ body {
     background-color: white;
 }
 
+.button:disabled {
+    background-color: #f5f5f5; 
+    color: #cccccc; 
+    cursor: not-allowed; 
+}
+
 .border {
     border-radius: 7px;
     height: 40px;
@@ -137,6 +143,7 @@ body {
 .tracker1 {
     color: black;
 }
+
 
 /* Cửa sổ category */
 body {
