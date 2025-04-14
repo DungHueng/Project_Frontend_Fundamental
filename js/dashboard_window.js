@@ -1,6 +1,6 @@
-let localLessons = JSON.parse(localStorage.getItem("lessons")) || [];
+/* let localLessons = JSON.parse(localStorage.getItem("lessons")) || []; */
 
-//  POPUP THÊM MÔN HỌC 
+/* Cửa số thêm mới môn học */
 function show() {
   document.getElementById("board_main").style.display = "flex";
 }
@@ -11,7 +11,7 @@ function closeBoard() {
   hide();
 }
 
-// XÁC NHẬN ĐĂNG XUẤT 
+/* Đăng xuất */
 function confirmLogout() {
   const swalWithBootstrapButtons = Swal.mixin({
     customClass: {
@@ -53,7 +53,7 @@ function confirmLogout() {
   });
 }
 
-// QUẢN LÝ MÔN HỌC 
+/* Quản lý môn học */
 let subjects = JSON.parse(localStorage.getItem("subjects")) || [];
 let currentUpdateIndex = null;
 let itemsPerPage = 4;
@@ -144,7 +144,7 @@ function confirmFix() {
   const name = document.querySelector('#fixModal input.subjectName').value.trim();
   const accept = document.querySelector('#fixModal input[name="accpect"]:checked')?.value;
 
-  // Kiểm tra trống
+  /* Kiểm tra xem thông tin để trống không */
   if (!name || !accept) {
     Swal.fire({
       icon: 'error',
@@ -155,7 +155,7 @@ function confirmFix() {
     return;
   }
 
-  // Kiểm tra trùng tên (trừ chính bản thân)
+  /* Kiểm tra trùng lặp */
   const isDuplicate = subjects.some((s, i) =>
     i !== currentUpdateIndex &&
     s.name.toLowerCase() === name.toLowerCase()
@@ -171,7 +171,7 @@ function confirmFix() {
     return;
   }
 
-  // Nếu hợp lệ, cập nhật
+ /* Cập nhật */
   subjects[currentUpdateIndex].name = name;
   subjects[currentUpdateIndex].accept = accept;
 
@@ -192,7 +192,7 @@ function closeModal1() {
   document.getElementById("fixModal").style.display = "none";
 }
 
-//  PHÂN TRANG 
+/* Phân trang */
 function getPages() {
   return Math.ceil(subjects.length / itemsPerPage);
 }
@@ -234,16 +234,16 @@ function renderPagination() {
   let totalPages = getPages();
   let str = "";
 
-  if (currentPage > 1) {
-    str += `<button class="button" onclick="prevPage()">&lt;</button>`;
+  if (currentPage >= 0) {
+    str += `<button class="button" onclick="prevPage()" ${currentPage === 1 ? 'disabled' : ''} >&lt;</button>`;
   }
 
   for (let i = 1; i <= totalPages; i++) {
     str += `<button class="button" onclick="gotoPage(${i})" ${i === currentPage ? 'style="font-weight:bold;background-color:#0066FF;color:white;"' : ''}>${i}</button>`;
   }
 
-  if (currentPage < totalPages) {
-    str += `<button class="button" onclick="nextPage()">&gt;</button>`;
+  if (currentPage <= totalPages) {
+    str += `<button class="button" onclick="nextPage()" ${currentPage === totalPages ? 'disabled' : ''} >&gt;</button>`;
   }
 
   document.getElementById("paginationContainer").innerHTML = str;
@@ -273,7 +273,7 @@ function updatePagination() {
   renderPagination();
 }
 
-//  TÌM KIẾM & LỌC 
+/* Tìm kiếm và lọc */
 function searchSubject() {
   let keyword = document.getElementById("search-0").value.trim().toLowerCase();
   let filtered = subjects.filter(s => s.name.toLowerCase().includes(keyword));
@@ -312,10 +312,9 @@ function renderSearch(list) {
   }
 
   document.getElementById("SubjectTableBody").innerHTML = str;
-  document.getElementById("paginationContainer").innerHTML = ""; // Tắt phân trang
 }
 
-//  SẮP XẾP THEO TÊN 
+/* Sắp xếp theo tên */
 function sortSubjectsByName() {
   isSorted = !isSorted;
 

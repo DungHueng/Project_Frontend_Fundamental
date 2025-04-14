@@ -60,20 +60,20 @@ document.getElementById('btn-register').addEventListener('click', function (e) {
     users.push(user);
     localStorage.setItem("users", JSON.stringify(users));
 
-    /* Swal.fire({
+    Swal.fire({
       title: "Đăng ký thành công!",
       icon: "success",
-      draggable: true
+      timer: 2000,
+      showConfirmButton: false
     }).then(() => {
       setTimeout(() => {
         window.location.href = "login.html";
       }, 1000);
-    }); */
-    let timerInterval;
+    });
+    /* let timerInterval;
     Swal.fire({
       icon: "success",
       title: "Đăng ký thành công!",
- /*      html: "Đang chuyển qua trang đăng nhập trong <b></b> giây.", */
       timer: 2000,
       timerProgressBar: true,
       didOpen: () => {
@@ -91,7 +91,7 @@ document.getElementById('btn-register').addEventListener('click', function (e) {
 
         window.location.href = "login.html";
       }
-    });
+    }); */
   }
 });
 

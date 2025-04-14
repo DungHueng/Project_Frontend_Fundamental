@@ -70,8 +70,49 @@ const Lessons = [
   }
 ];
 
-// Lưu vào localStorage
 localStorage.setItem("lessons", JSON.stringify(Lessons));
+
+  /* Đăng xuất */
+  function confirmLogout() {
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: "btn btn-success",
+        cancelButton: "btn btn-danger"
+      },
+      buttonsStyling: false
+    });
+  
+    swalWithBootstrapButtons.fire({
+      title: "Bạn có chắc muốn đăng xuất không?",
+      text: "Sau khi đăng xuất, bạn sẽ phải đăng nhập lại.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Đăng xuất",
+      cancelButtonText: "Hủy",
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        localStorage.removeItem("isLoggedIn");
+        swalWithBootstrapButtons.fire({
+          title: "Đã đăng xuất",
+          text: "Bạn đã đăng xuất thành công.",
+          icon: "success",
+          timer: 1500,
+          showConfirmButton: false
+        }).then(() => {
+          window.location.href = "login.html";
+        });
+      } else {
+        swalWithBootstrapButtons.fire({
+          title: "Hủy bỏ",
+          text: "Bạn đã huỷ đăng xuất thành công ^^!",
+          icon: "success",
+          timer: 1000,
+          showConfirmButton: false
+        });
+      }
+    });
+  }
 
 function saveLesson() {
   const nameInput = document.getElementById("lessonName");
@@ -90,12 +131,17 @@ function saveLesson() {
 
   let hasError = false;
 
-  if (!name) {
-    document.getElementById("nameError").textContent = "Vui lòng nhập tên bài học.";
-    hasError = true;
+  if (!name || !subject || !time || !statusInput) {
+    Swal.fire({
+      icon: 'error',
+      title: 'Thông tin không được để trống!',
+      timer: 1500,
+      showConfirmButton: false
+    });
+    if (hasError) return;
   }
 
-  if (!subject) {
+/*   if (!subject) {
     document.getElementById("subjectError").textContent = "Vui lòng chọn môn học.";
     hasError = true;
   }
@@ -115,7 +161,7 @@ function saveLesson() {
     hasError = true;
   }
 
-  if (hasError) return;
+  if (hasError) return; */
 
   const status = statusInput.value;
   const id = editLessonId || Date.now();
@@ -131,7 +177,7 @@ function saveLesson() {
   };
 
   if (editLessonId) {
-    lessons = lessons.map(lesson => lesson.id === id ? newLesson : lesson); // sẽ duyệt qua từng phần tử trong mảng lessons, và trả về một mảng mới.
+    lessons = lessons.map(lesson => lesson.id === id ? newLesson : lesson);
     editLessonId = null;
   } else {
     lessons.unshift(newLesson);
@@ -174,6 +220,7 @@ function openEditModal(id) {
   }
 }
 
+/* Xoá môn học */
 function openDeleteModal(id) {
   Swal.fire({
     title: 'Bạn có chắc muốn xoá bài học này?',
@@ -256,7 +303,7 @@ function renderLessons() {
   }
   
 
-  // Sắp xếp theo tên (nếu có biến sortByNameAsc)
+/* Sắp xếp theo trạng thái */
   filteredLessons.sort((a, b) => {
     return sortByNameAsc
       ? a.lesson_name.localeCompare(b.lesson_name)
@@ -296,10 +343,8 @@ function renderLessonPagination(totalItems) {
   const totalPages = Math.ceil(totalItems / lessonsPerPage);
   let str = "";
 
-  // Nút Prev
   str += `<button class="button" onclick="prevLessonPage()" ${currentPage === 1 ? 'disabled' : ''}>&lt;</button>`;
 
-  // Nút số trang
   for (let i = 1; i <= totalPages; i++) {
     str += `<button class="button" onclick="goToLessonPage(${i})" ${
       i === currentPage
@@ -308,7 +353,7 @@ function renderLessonPagination(totalItems) {
     }>${i}</button>`;
   }
 
-  // Nút Next
+
   str += `<button class="button" onclick="nextLessonPage()" ${currentPage === totalPages ? 'disabled' : ''}>&gt;</button>`;
 
   document.getElementById("paginationContainer").innerHTML = str;
@@ -332,7 +377,7 @@ function goToLessonPage(page) {
 }
 
 
-  // Áp dụng sắp xếp theo tên
+/* Lọc theo trạng thái */
    filteredLessons.sort((a, b) => {
     return sortByNameAsc
       ? a.lesson_name.localeCompare(b.lesson_name)
@@ -367,11 +412,7 @@ function renderPagination(totalLessons) {
   const paginationContainer = document.getElementById("paginationContainer");
   if (!paginationContainer) return;
 
-  const totalPages = Math.ceil(totalLessons / lessonsPerPage);
-  if (totalLessons === 0) {
-    paginationContainer.innerHTML = "<p>No lessons available.</p>";
-    return;
-  }
+  const totalPages = Math.ceil(totalLessons / lessonsPerPage); /*  */
   let paginationHTML = "";
 
   for (let i = 1; i <= totalPages; i++) {

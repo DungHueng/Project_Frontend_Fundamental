@@ -12,13 +12,13 @@ document.getElementById('btn-login').addEventListener('click', function () {
 
     let isValid = true;
 
-    if (email === '') {
-        showError(emailInput, 'Email không được để trống');
+     if (email === '') {
+        showError(emailInput, '');
         isValid = false;
     }
 
-    if (password === '') {
-        showError(passwordInput, 'Mật khẩu không được để trống');
+    if (password === '' || email === '') {
+        showError(passwordInput || emailInput , 'Email và mật khẩu không được để trống');
         isValid = false;
     }
 
